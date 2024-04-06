@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class BasketSplitterTest {
 
@@ -21,5 +22,14 @@ public class BasketSplitterTest {
         int expectedNumberOfAppetizerDelivery = 7;
         int actualNumberOfAppetizerDelivery = 7;
         Assert.assertEquals(expectedNumberOfAppetizerDelivery, actualNumberOfAppetizerDelivery);
+    }
+
+    @Test
+    public void givenAbsolutePathToConfigFile_whenReadingInputs_thenReturnSetOfDeliveryTypes() {
+        BasketSplitter basket = new BasketSplitter("/Users/user/Desktop/DO ROBOTY/Ocado/Zadanie/config.json");
+
+        List<String> actualDeliveryTypes = basket.getDeliveryTypes();
+        Assert.assertTrue(actualDeliveryTypes.contains("Pick-up point"));
+        Assert.assertTrue(actualDeliveryTypes.contains("Express Collection"));
     }
 }
