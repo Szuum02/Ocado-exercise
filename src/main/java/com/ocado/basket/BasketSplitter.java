@@ -32,10 +32,10 @@ public class BasketSplitter {
 
     public Map<String, List<String>> split(List<String> items) {
         BasketDelivery delivery = splitItems(items, 0, new ArrayList<>());
-        return delivery.getDeliveries();
+        return delivery.getSortedDeliveries(items);
     }
 
-    public BasketDelivery splitItems(List<String> items, int deliveryIdx, List<String> usedDeliveries) {
+    private BasketDelivery splitItems(List<String> items, int deliveryIdx, List<String> usedDeliveries) {
         if (deliveryIdx == deliveryTypes.size()) {
             return new BasketDelivery(Integer.MAX_VALUE);
         }
