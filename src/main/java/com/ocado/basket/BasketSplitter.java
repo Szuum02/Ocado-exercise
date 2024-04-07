@@ -21,8 +21,8 @@ public class BasketSplitter {
         }
 
         Set<String> tmp = new HashSet<>();
-        for (String product : deliveryOptions.keySet()) {
-            tmp.addAll(deliveryOptions.get(product));
+        for (String item : deliveryOptions.keySet()) {
+            tmp.addAll(deliveryOptions.get(item));
             if (tmp.size() == MAX_DELIVERY_TYPES) {
                 break;
             }

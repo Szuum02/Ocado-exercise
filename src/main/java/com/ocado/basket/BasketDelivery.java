@@ -4,30 +4,30 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class BasketDelivery {
-    private int maxProducts; // max products in one delivery
+    private int maxItems; // max items in one delivery
     private final Map<String, List<String>> deliveries;
 
-    public BasketDelivery(int maxProducts) {
-        this.maxProducts = maxProducts;
+    public BasketDelivery(int maxItems) {
+        this.maxItems = maxItems;
         deliveries = new HashMap<>();
     }
 
-    public BasketDelivery(List<String> items, Map<String, List<String>> productsDeliveryOption, List<String> deliveryTypes) {
+    public BasketDelivery(List<String> items, Map<String, List<String>> itemsDeliveryOption, List<String> deliveryTypes) {
         deliveries = new HashMap<>();
         for (String deliveryType : deliveryTypes) {
             deliveries.put(deliveryType, new ArrayList<>());
             for (String item : items) {
-                if (productsDeliveryOption.get(item).contains(deliveryType)) {
+                if (itemsDeliveryOption.get(item).contains(deliveryType)) {
                     deliveries.get(deliveryType).add(item);
                 }
             }
-            maxProducts = Math.max(maxProducts, deliveries.get(deliveryType).size());
+            maxItems = Math.max(maxItems, deliveries.get(deliveryType).size());
         }
     }
 
-    public static boolean checkDeliveries(List<String> items, Map<String, List<String>> productsDeliveryOption, List<String> deliveryTypes) {
+    public static boolean checkDeliveries(List<String> items, Map<String, List<String>> itemsDeliveryOption, List<String> deliveryTypes) {
         for (String item : items) {
-            List<String> possibleDeliveries = getIntersection(productsDeliveryOption.get(item), deliveryTypes);
+            List<String> possibleDeliveries = getIntersection(itemsDeliveryOption.get(item), deliveryTypes);
             if (possibleDeliveries.size() == 0) {
                 return false;
             }
@@ -42,44 +42,40 @@ public class BasketDelivery {
     }
 
     public boolean isBetter(BasketDelivery other) {
-        if (other.maxProducts == Integer.MAX_VALUE) {
+        if (other.maxItems == Integer.MAX_VALUE) {
             return true;
         }
         return deliveries.keySet().size() == other.deliveries.keySet().size()
-                ? maxProducts > other.maxProducts : deliveries.keySet().size() < other.deliveries.keySet().size();
+                ? maxItems > other.maxItems : deliveries.keySet().size() < other.deliveries.keySet().size();
     }
 
     public Map<String, List<String>> getSortedDeliveries(List<String> originalItems) {
-        List<String> items = new ArrayList<>(originalItems); // if original items are immutable
+        List<String> itemsCopy = new ArrayList<>(originalItems); // if original items are immutable
         Map<String, List<String>> result = new HashMap<>();
-        while (!items.isEmpty()) {
-            String bestDeliveryType = getBestDelivery(items);
-            List<String> products = getIntersection(deliveries.get(bestDeliveryType), items);
-            result.put(bestDeliveryType, products.stream().toList());
-            items.removeAll(products);
+        while (!itemsCopy.isEmpty()) {
+            String bestDeliveryType = getBestDelivery(itemsCopy);
+            List<String> deliveredItems = getIntersection(deliveries.get(bestDeliveryType), itemsCopy);
+            result.put(bestDeliveryType, deliveredItems.stream().toList());
+            itemsCopy.removeAll(deliveredItems);
         }
         return result;
     }
 
     private String getBestDelivery(List<String> items) {
         String bestDeliveryType = "";
-        int maxProductsNumber = 0;
+        int maxItemsNumber = 0;
         for (String deliveryType : deliveries.keySet()) {
-            List<String> products = getIntersection(deliveries.get(deliveryType), items);
-            if (products.size() > maxProductsNumber) {
+            List<String> deliveredItems = getIntersection(deliveries.get(deliveryType), items);
+            if (deliveredItems.size() > maxItemsNumber) {
                 bestDeliveryType = deliveryType;
-                maxProductsNumber = products.size();
+                maxItemsNumber = deliveredItems.size();
             }
         }
         return bestDeliveryType;
     }
 
-    public int getDeliveriesNumber() {
-        return deliveries.size();
-    }
-
-    public int getMaxProducts() {
-        return maxProducts;
+    public int getMaxItems() {
+        return maxItems;
     }
 
     public Map<String, List<String>> getDeliveries() {

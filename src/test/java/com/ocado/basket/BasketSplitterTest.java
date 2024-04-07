@@ -9,7 +9,7 @@ import java.util.Map;
 public class BasketSplitterTest {
 
     @Test
-    public void givenAbsolutePathToConfigFile_whenReadingInputs_thenReturnMapProductsDelivery() {
+    public void givenAbsolutePathToConfigFile_whenReadingInputs_thenReturnMapItemsDelivery() {
         BasketSplitter basket = new BasketSplitter("/Users/user/Desktop/praktyki/Ocado/Zadanie/config.json");
         Map<String, List<String>> actualMap = basket.getDeliveryOptions();
 
@@ -34,7 +34,7 @@ public class BasketSplitterTest {
 
     @Test
     public void givenAbsolutePathToConfigFile_whenSplitBasket_returnBestSplit() {
-        // same products and delivery like in BasketDeliveryTestClass
+        // same items and delivery like in BasketDeliveryTestClass
         BasketSplitter splitter = new BasketSplitter("C:/Users/user/Desktop/praktyki/Ocado/Zadanie/zadanie/src/main/resources/configTest.json");
         List<String> items = List.of("Item1", "Item2", "Item3", "Item4", "Item5");
         Map<String, List<String>> actualBestSplit = splitter.split(items);
