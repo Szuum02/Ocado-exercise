@@ -35,7 +35,7 @@ public class BasketSplitterTest {
     @Test
     public void givenAbsolutePathToConfigFile_whenSplitBasket_returnBestSplit() {
         // same items and delivery like in BasketDeliveryTestClass
-        BasketSplitter splitter = new BasketSplitter("C:/Users/user/Desktop/praktyki/Ocado/Zadanie/zadanie/src/main/resources/configTest.json");
+        BasketSplitter splitter = new BasketSplitter("C:/Users/user/Desktop/praktyki/Ocado/Zadanie/Szymon_Urbanski_Java_Krakow/src/main/resources/configTest.json");
         List<String> items = List.of("Item1", "Item2", "Item3", "Item4", "Item5");
         Map<String, List<String>> actualBestSplit = splitter.split(items);
         Map<String, List<String>> expectedBestSplit = Map.of(
