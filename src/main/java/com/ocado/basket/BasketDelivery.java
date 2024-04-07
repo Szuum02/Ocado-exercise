@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 public class BasketDelivery {
     private int maxProducts; // max products in one delivery
     private final Map<String, List<String>> deliveries;
-    private Map<String, Integer> productsInDelivery;
 
     public BasketDelivery(int maxProducts) {
         this.maxProducts = maxProducts;
@@ -65,26 +64,14 @@ public class BasketDelivery {
     private String getBestDelivery(List<String> items) {
         String bestDeliveryType = "";
         int maxProductsNumber = 0;
-//        Set<String> bestDeliveryProducts = new HashSet<>();
         for (String deliveryType : deliveries.keySet()) {
             List<String> products = getIntersection(deliveries.get(deliveryType), items);
             if (products.size() > maxProductsNumber) {
                 bestDeliveryType = deliveryType;
                 maxProductsNumber = products.size();
-//                bestDeliveryProducts = products;
             }
         }
-//        items.removeAll(bestDeliveryProducts);
         return bestDeliveryType;
-    }
-
-    public void addDelivery(Map<String, List<String>> deliveryOption, String deliveryType) {
-        for (String product : deliveryOption.keySet()) {
-            if (deliveryOption.get(product).contains(deliveryType)) {
-                deliveries.get(deliveryType).add(product);
-                maxProducts = Math.max(maxProducts, deliveries.get(deliveryType).size());
-            }
-        }
     }
 
     public int getDeliveriesNumber() {

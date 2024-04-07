@@ -1,0 +1,7 @@
+{
+  "Item1" : ["Delivery1", "Delivery3"],
+  "Item2" : ["Delivery1", "Delivery2", "Delivery3"],
+  "Item3" : ["Delivery2", "Delivery4"],
+  "Item4" : ["Delivery1", "Delivery2"],
+  "Item5" : ["Delivery1", "Delivery3", "Delivery4"]
+}

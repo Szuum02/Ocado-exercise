@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        BasketSplitter basket = new BasketSplitter("/Users/user/Desktop/DO ROBOTY/Ocado/Zadanie/config.json");
+        BasketSplitter basket = new BasketSplitter("/Users/user/Desktop/praktyki/Ocado/Zadanie/config.json");
 
 //        List<String> items = List.of("Cocoa Butter", 	"Tart - Raisin And Pecan", "Table Cloth 54x72 White",
 //                "Flower - Daisies", "Fond - Chocolate", "Cookies - Englishbay Wht");
@@ -23,6 +23,7 @@ public class Main {
                 "Longan", "Bag Clear 10 Lb", "Nantucket - Pomegranate Pear", "Puree - Strawberry",
                 "Numi - Assorted Teas", "Apples - Spartan", "Garlic - Peeled", "Cabbage - Nappa",
                 "Bagel - Whole White Sesame", "Tea - Apple Green Tea");
+        items = basket.getDeliveryOptions().keySet().stream().toList() ;
         Map<String, List<String>> res = basket.split(items);
         System.out.println(res);
     }
